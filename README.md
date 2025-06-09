@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 
 ## Overview
 
@@ -15,19 +13,19 @@ the Items API
 ##  Test Coverage (Testcases)
 
 1. test_top_stories_returns_ids 
-  -Retrieving top stories with the top stories API
+  ->  Retrieving top stories with the top stories API
 2. test_top_story_has_title_and_url_or_text
-  -using the top stories API to retrieve the current top story from the items api
+  ->  using the top stories API to retrieve the current top story from the items api
 3. test_top_story_first_comment
-  -using the top stories api to retrieve a top story, retrieve its first comment using the item api.
+  ->  using the top stories api to retrieve a top story, retrieve its first comment using the item api.
 4. test_lowest_id_item
-  -edge case: check json with id = 0.
+  ->  edge case: check json with id = 0.
 5. test_max_id_item
-  -edge case: check json with max id number. 
+  ->  edge case: check json with max id number. 
 6. test_every_top_story_is_type_story
-  -edge case: check for all the top stories if they have title
+  ->  edge case: check for all the top stories if they have title
 7. test_every_comment_top_story_has_a_comment
-  -edge case check for all the top stories first comment have text. 
+  ->  edge case check for all the top stories first comment have text. 
 
 ---
 
@@ -61,7 +59,4 @@ the Items API
    ```bash
    pytest -s -v
    ```
-=======
-# hackernews-api-test
-acceptance test or hacker news api
->>>>>>> e6378699c7230358c7e143b380c4019aef9acfe2
+
