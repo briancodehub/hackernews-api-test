@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 ## Overview
@@ -60,3 +61,7 @@ the Items API
    ```bash
    pytest -s -v
    ```
+=======
+# hackernews-api-test
+acceptance test or hacker news api
+>>>>>>> e6378699c7230358c7e143b380c4019aef9acfe2
