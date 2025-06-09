@@ -1,2 +1,2 @@
 # hackernews-api-test
-acceptance testf or hacker news api
+acceptance test or hacker news api
