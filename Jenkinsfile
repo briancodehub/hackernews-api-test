@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/briancodehub/hackernews-api-test.git'
+                git branch: 'main', url: 'https://github.com/briancodehub/hackernews-api-test.git'
             }
         }
 
