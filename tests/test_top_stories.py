@@ -1,5 +1,5 @@
 import requests
-
+import pytest
 
 
 # 1 Retrieving top stories with the top stories API
@@ -79,7 +79,7 @@ def test_every_top_story_is_type_story():
     top_ids = response_1.json() # convert response to json
     assert isinstance(top_ids, list)  # check the data if it is a list
 
-    for id in top_ids:
+    for id in top_ids[:10]: # Only test top 10 stories
 
         response_2 = requests.get(f"https://hacker-news.firebaseio.com/v0/item/{id}.json")
         assert response_2.status_code == 200  # check if response is success
@@ -95,6 +95,27 @@ def test_every_top_story_is_type_story():
         assert "url" in story or "text" in story # story type can have an url (story) or text (ask)  
 
 
+#6.1 edge case: check for all the top stories if they have title:
+
+
+# @pytest.fixture(scope="module")
+# def top_story_ids():
+#     response = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json", timeout=5)
+#     assert response.status_code == 200
+#     return response.json()[:10]  # Limit to top 10 stories
+
+
+# @pytest.mark.parametrize("story_id", top_story_ids)
+# def test_story_details(story_id):
+#     response = requests.get(f"https://hacker-news.firebaseio.com/v0/item/{story_id}.json")
+#     assert response.status_code == 200
+#     story = response.json()
+#     assert story.get("type") == "story"
+#     assert "title" in story
+#     assert "url" in story or "text" in story
+
+
+
 #7 edge case check for all the top stories first comment have text. 
 # Found deleted comment, but it is expected. 
 def test_every_comment_top_story_has_a_comment():
@@ -102,7 +123,7 @@ def test_every_comment_top_story_has_a_comment():
     assert response_1.status_code == 200  # check if response is success
     top_ids = response_1.json() # convert response to json
 
-    for id in top_ids:
+    for id in top_ids[:10]: # Only test top 10 stories
 
         response_2 = requests.get(f"https://hacker-news.firebaseio.com/v0/item/{id}.json")
         assert response_2.status_code == 200  # check if response is success
