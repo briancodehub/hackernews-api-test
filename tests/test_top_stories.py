@@ -4,6 +4,7 @@ import pytest
 
 # 1 Retrieving top stories with the top stories API
 def test_top_stories_returns_ids():
+    """Retrieving top stories with the top stories API"""
     response = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     # print("Response status:", response.status_code) # for debugging.
     assert response.status_code == 200  # check if response is success
@@ -17,6 +18,7 @@ def test_top_stories_returns_ids():
 
 # 2 using the top stories API to retrieve the current top story from the items api
 def test_top_story_has_title_and_url_or_text():
+    """using the top stories API to retrieve the current top story from the items api"""
     response_1 = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     assert response_1.status_code == 200  # check if response is success
     top_ids = response_1.json() # convert response to json
@@ -33,6 +35,7 @@ def test_top_story_has_title_and_url_or_text():
 
 # 3 using the top stories api to retrieve a top story, retrieve its first comment using the item api.
 def test_top_story_first_comment():
+    """using the top stories api to retrieve a top story, retrieve its first comment using the item api."""
     response_1 = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     assert response_1.status_code == 200  # check if response is success
     top_ids = response_1.json() # convert response to json
@@ -55,12 +58,14 @@ def test_top_story_first_comment():
 
 #4 edge case: check json with id = 0. 
 def test_lowest_id_item():
+    """edge case: check json with id = 0."""
     response = requests.get("https://hacker-news.firebaseio.com/v0/item/0.json")
     assert response.status_code == 200 # check if response is success potential bug? should this be 404 instead? 
     assert response.json() is None  # check if the data is NIL
 
 #5 edge case: check json with max id number. 
 def test_max_id_item():
+    """edge case: check json with max id number."""
     response = requests.get("https://hacker-news.firebaseio.com/v0/maxitem.json")
     assert response.status_code == 200 # check if response is success  
     max_id = response.json() # convert to json
@@ -74,6 +79,7 @@ def test_max_id_item():
 
 #6 edge case: check for all the top stories if they have title:
 def test_every_top_story_is_type_story():
+    """edge case: check for all the top stories if they have title:"""
     response_1 = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     assert response_1.status_code == 200  # check if response is success
     top_ids = response_1.json() # convert response to json
@@ -119,6 +125,7 @@ def test_every_top_story_is_type_story():
 #7 edge case check for all the top stories first comment have text. 
 # Found deleted comment, but it is expected. 
 def test_every_comment_top_story_has_a_comment():
+    """edge case check for all the top stories first comment have text."""
     response_1 = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json")
     assert response_1.status_code == 200  # check if response is success
     top_ids = response_1.json() # convert response to json
