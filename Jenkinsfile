@@ -1,54 +1,41 @@
 pipeline {
     agent any
 
-    environment {
-        VENV_DIR = 'venv'
-    }
-
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/briancodehub/hackernews-api-test.git'
+                git 'https://github.com/briancodehub/hackernews-api-test.git'
             }
         }
 
-        stage('Setup Python Environment') {
+        stage('Setup Python') {
             steps {
                 sh '''
-                    python3 -m venv $VENV_DIR
-                    . $VENV_DIR/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
+                python3 -m venv venv
+                . venv/bin/activate
+                pip install -r requirements.txt
                 '''
             }
         }
 
-        stage('Run API Acceptance Tests') {
+        stage('Run Tests') {
             steps {
                 sh '''
-                    mkdir -p test-results
-                    . $VENV_DIR/bin/activate
-                    pytest -s -v tests/ --junitxml=test-results/results.xml
+                . venv/bin/activate
+                pytest --html=html_report/report.html --self-contained-html
                 '''
             }
         }
 
-        stage('Publish Test Report') {
+        stage('Publish HTML Report') {
             steps {
-                junit 'test-results/results.xml'
+                publishHTML([ 
+                    reportDir: 'html_report',
+                    reportFiles: 'report.html',
+                    reportName: 'HackerNews API Test Report'
+                ])
             }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline finished.'
-        }
-        success {
-            echo '🎉 All tests passed!'
-        }
-        failure {
-            echo '❌ Some tests failed. Check the test report tab.'
         }
     }
 }
+
