@@ -26,9 +26,16 @@ pipeline {
         stage('Run API Acceptance Tests') {
             steps {
                 sh '''
+                    mkdir -p test-results
                     . $VENV_DIR/bin/activate
-                    pytest -s -v tests/
+                    pytest -s -v tests/ --junitxml=test-results/results.xml
                 '''
+            }
+        }
+
+        stage('Publish Test Report') {
+            steps {
+                junit 'test-results/results.xml'
             }
         }
     }
@@ -41,7 +48,7 @@ pipeline {
             echo '🎉 All tests passed!'
         }
         failure {
-            echo '❌ Some tests failed. Please check logs.'
+            echo '❌ Some tests failed. Check the test report tab.'
         }
     }
 }
