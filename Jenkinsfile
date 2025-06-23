@@ -22,7 +22,7 @@ pipeline {
             steps {
                 sh '''
                 . venv/bin/activate
-                pytest --html=html_report/report.html --self-contained-html
+                pytest tests/ --html=html_report/report.html --self-contained-html --tb=long -v
                 '''
             }
         }
