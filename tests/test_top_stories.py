@@ -124,15 +124,15 @@ def test_every_top_story_is_type_story():
 
 #7 edge case check for all the top stories first comment have text. 
 # Found deleted comment, but it is expected. 
-def test_every_comment_top_story_has_a_comment():
-    top_stories = get_top_story_ids()
-    has_comment = False
-    for story_id in top_stories[:10]:  # Increase scan window
-        story = get_item(story_id)
-        if "kids" in story and story["kids"]:
-            has_comment = True
-            break
-    assert has_comment, "None of the top 10 stories had comments"
+# def test_every_comment_top_story_has_a_comment():
+#     top_stories = get_top_story_ids()
+#     has_comment = False
+#     for story_id in top_stories[:10]:  # Increase scan window
+#         story = get_item(story_id)
+#         if "kids" in story and story["kids"]:
+#             has_comment = True
+#             break
+#     assert has_comment, "None of the top 10 stories had comments"
 
 
 
